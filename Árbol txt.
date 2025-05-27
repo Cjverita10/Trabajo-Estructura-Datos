@@ -1,0 +1,25 @@
+Es una estructura de datos donde cada nodo tiene como máximo dos hijos: uno a la izquierda y otro a la derecha.
+Clase Nodo:
+Representa cada elemento del árbol.
+Tiene un valor y dos hijos: izquierdo y derecho.
+
+Clase ArbolBinario
+Es el árbol completo. Tiene métodos para insertar datos y recorrerlos.
+
+Inserción en el Árbol
+Esto agrega un número al árbol. La regla es:
+Si es menor, va a la izquierda.
+Si es mayor, va a la derecha.
+
+Recorridos del Árbol
+Son formas de visitar todos los nodos:
+
+InOrden (izquierda, nodo, derecha): Ordena los valores.
+PreOrden (nodo, izquierda, derecha): Se usa para copiar el árbol.
+PostOrden (izquierda, derecha, nodo): Se usa para eliminar o evaluar el árbol.
+
+
+Ejemplo de salida
+
+InOrden: 20 30 40 50 60 70 80 
+PreOrden: 50 30 20 40 70 60 80
