@@ -1,0 +1,34 @@
+Un grafo es una estructura de datos que tiene:
+
+Vértices (nodos): puntos o elementos del grafo.
+Aristas (conexiones): enlaces entre los vértices.
+
+Clase Grafo
+$vertices: guarda los nombres o identificadores de los nodos.
+$aristas: guarda las conexiones entre los nodos.
+
+Métodos del grafo
+ __construct() Inicializa el grafo con:
+
+Una lista vacía de vértices.
+Una lista vacía de aristas.
+
+agregarVertice($vertice)
+Agrega un nuevo nodo al grafo.
+También prepara su lista de conexiones vacía.
+
+agregarArista($vertice1, $vertice2)
+Crea una conexión en ambos sentidos (es un grafo no dirigido) entre dos vértices.
+
+imprimirGrafo()
+Muestra todos los vértices y a qué otros vértices están conectados.
+
+$grafo->agregarVertice("A");
+$grafo->agregarVertice("B");
+$grafo->agregarArista("A", "B");
+$grafo->imprimirGrafo();
+
+La salida sería:
+
+A -------> B--->
+B -------> A--->
