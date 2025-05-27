@@ -1,0 +1,105 @@
+<?php
+
+class nodo {
+  public $valor;
+  public $izquierdo;
+  public $derecho;
+  
+  public function __construct($valor){
+    $this->valor = $valor;
+    $this->izquierdo = null;
+    $this->derecho = null;
+  }
+}
+
+class arbolbinario {
+  private $raiz;
+  
+  public function __construct(){
+    $this->raiz = null;
+  }
+  
+  public function insertar($valor){
+    $this->raiz = $this->insertarrec($this->raiz, $valor);
+  }
+  
+  private function insertarrec($nodo, $valor){
+    if ($nodo === null){
+      return new nodo($valor);
+    }
+    
+    if ($valor < $nodo->valor){
+      $nodo->izquierdo = $this->insertarrec($nodo->izquierdo, $valor);
+    } else if ($valor > $nodo->valor){
+      $nodo->derecho = $this->insertarrec($nodo->derecho, $valor);
+    }
+
+    return $nodo;
+  }
+
+  public function inorden(){
+    $this->inordenrec($this->raiz);
+    echo PHP_EOL;
+  }
+
+  private function inordenrec($nodo){
+    if ($nodo !== null){
+      $this->inordenrec($nodo->izquierdo);
+      echo $nodo->valor . " ";
+      $this->inordenrec($nodo->derecho);
+    }
+  }
+
+  public function preorden(){
+    $this->preordenrec($this->raiz);
+    echo PHP_EOL;
+  }
+
+  private function preordenrec($nodo){
+    if ($nodo !== null){
+      echo $nodo->valor . " ";
+      $this->preordenrec($nodo->izquierdo);
+      $this->preordenrec($nodo->derecho);
+    }
+  }
+
+  public function postorden(){
+    $this->postordenrec($this->raiz);
+    echo PHP_EOL;
+  }
+
+  private function postordenrec($nodo){
+    if ($nodo !== null){
+      $this->postordenrec($nodo->izquierdo);
+      $this->postordenrec($nodo->derecho);
+      echo $nodo->valor . " ";
+    }
+  }
+}
+
+$arbol = new arbolbinario();
+$arbol->insertar(50);
+$arbol->insertar(30);
+$arbol->insertar(70);
+$arbol->insertar(20);
+$arbol->insertar(40);
+$arbol->insertar(60);
+$arbol->insertar(80);
+
+echo "Recorrido inorden: \n";
+$arbol->inorden();
+
+echo "Recorrido preorden: \n";
+$arbol->preorden();
+
+echo "Recorrido postorden: \n";
+$arbol->postorden();
+
+?>
+
+permite insertar datos de forma ordenada y luego recorrerlos o buscarlos de una manera mas sencilla.
+los nodos del lado izquierdo son de menor valor, mientras que los del derecho son de mayor valor, cuando se inserta un valor 
+lo que hace es compararlos para saber cual seria su posicionamiento y este mismo se repite.
+inorden se encarga de imprimen valores ascendentemente.
+preorden se usa para representar su estructura.
+postorden se usa para borrar el arbol desde las hojas hacia la raiz.
