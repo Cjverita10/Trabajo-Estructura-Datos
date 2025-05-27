@@ -1,50 +1,96 @@
 <?php
 
-class Grafo {
+class Nodo {
+    public $valor;
+    public $izquierdo;
+    public $derecho;
 
-    public $vertices;
-    public $aristas;
+    public function __construct($valor) {
+        $this->valor = $valor;
+        $this->izquierdo = null;
+        $this->derecho = null;
+    }
+}
+
+class ArbolBinario {
+    private $raiz;
 
     public function __construct() {
-        $this->vertices = array();
-        $this->aristas = array();
+        $this->raiz = null;
     }
 
-    public function agregarVertice($vertice) {
-        $this->vertices[] = $vertice;
-        $this->aristas[$vertice] = array();
+    public function insertar($valor) {
+        $this->raiz = $this->insertarRec($this->raiz, $valor);
     }
 
-    public function agregarArista($vertice1, $vertice2) {
-        $this->aristas[$vertice1][] = $vertice2;
-        $this->aristas[$vertice2][] = $vertice1;
+    private function insertarRec($nodo, $valor) {
+        if ($nodo === null) {
+            return new Nodo($valor);
+        }
+        if ($valor < $nodo->valor) {
+            $nodo->izquierdo = $this->insertarRec($nodo->izquierdo, $valor);
+        } else {
+            $nodo->derecho = $this->insertarRec($nodo->derecho, $valor);
+        }
+        return $nodo;
     }
 
-    public function imprimirGrafo() {
-        foreach ($this->vertices as $vertice) {
-            echo $vertice . " -------> ";
-            foreach ($this->aristas[$vertice] as $item) {
-                echo $item . "--->";
-            }
-            echo ".\n";
+    public function inOrden() {
+        $this->inOrdenRec($this->raiz);
+        echo PHP_EOL;
+    }
+
+    private function inOrdenRec($nodo) {
+        if ($nodo !== null) {
+            $this->inOrdenRec($nodo->izquierdo);
+            echo $nodo->valor ." ";
+            $this->inOrdenRec($nodo->derecho);
+        }
+    }
+
+    public function preOrden() {
+        $this->preOrdenRec($this->raiz);
+        echo PHP_EOL;
+    }
+
+    private function preOrdenRec($nodo) {
+        if ($nodo !== null) {
+            echo $nodo->valor ." ";
+            $this->preOrdenRec($nodo->izquierdo);
+            $this->preOrdenRec($nodo->derecho);
+        }
+    }
+
+    public function postOrden() {
+        $this->postOrdenRec($this->raiz);
+        echo PHP_EOL;
+    }
+
+    private function postOrdenRec($nodo) {
+        if ($nodo !== null) {
+            $this->postOrdenRec($nodo->izquierdo);
+            $this->postOrdenRec($nodo->derecho);
+            echo $nodo->valor ." ";
         }
     }
 }
 
-// Crear grafo y agregar vértices y aristas
-$miGrafo = new Grafo();
+$arbol = new ArbolBinario();
 
-$miGrafo->agregarVertice("A");
-$miGrafo->agregarVertice("B");
-$miGrafo->agregarVertice("C");
-$miGrafo->agregarVertice("D");
+$arbol->insertar(50);
+$arbol->insertar(30);
+$arbol->insertar(70);
+$arbol->insertar(20);
+$arbol->insertar(40);
+$arbol->insertar(60);
+$arbol->insertar(80);
 
-$miGrafo->agregarArista("A", "B");
-$miGrafo->agregarArista("B", "C");
-$miGrafo->agregarArista("C", "A");
-$miGrafo->agregarArista("B", "D");
+echo "Recorrido InOrden:\n";
+$arbol->inOrden();
 
-echo "EL GRAFO CREADO ES:\n";
-$miGrafo->imprimirGrafo();
+echo "Recorrido PreOrden:\n";
+$arbol->preOrden();
 
-?> 
+echo "Recorrido PostOrden:\n";
+$arbol->postOrden();
+?>
