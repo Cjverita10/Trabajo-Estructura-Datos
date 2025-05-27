@@ -1,0 +1,6 @@
+Una lista enlazada es una estructura lineal no contigua en memoria, que permite la inserción y eliminación eficiente de elementos, especialmente en contextos donde la gestión dinámica de memoria es crucial y se requiere evitar el costo computacional de mover elementos como en los arreglos tradicionales.
+Cada nodo tiene dos partes:
+
+Dato: El valor que almacena (por ejemplo, un número, una palabra, etc.).
+
+Referencia o puntero: Es un "enlace" que apunta al siguiente nodo en la lista. 
