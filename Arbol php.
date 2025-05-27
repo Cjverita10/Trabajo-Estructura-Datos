@@ -47,4 +47,4 @@ $miGrafo->agregarArista("B", "D");
 echo "EL GRAFO CREADO ES:\n";
 $miGrafo->imprimirGrafo();
 
-?>
+?> 
