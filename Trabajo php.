@@ -1,0 +1,115 @@
+<?php
+
+// Liga de Fútbol en PHP con estructuras de datos
+echo "Liga de Fútbol: Estructuras de Datos\n\n";
+
+// 1. Arreglos: Lista de equipos que participan en la liga
+echo "1. Equipos:\n";
+$equipos = ["Tigres", "Monterrey", "Chivas", "América", "Pumas"];
+foreach ($equipos as $equipo) {
+    echo $equipo . " ";
+}
+echo "\n\n";
+
+// 2. Lista enlazada: Armamos el calendario con partidos programados
+class Partido {
+    public $equipo1, $equipo2;
+    public $siguiente;
+
+    public function __construct($equipo1, $equipo2) {
+        $this->equipo1 = $equipo1;
+        $this->equipo2 = $equipo2;
+        $this->siguiente = null;
+    }
+}
+
+class Calendario {
+    private $inicio;
+
+    public function agregarPartido($equipo1, $equipo2) {
+        $nuevo = new Partido($equipo1, $equipo2);
+        if (!$this->inicio) {
+            $this->inicio = $nuevo;
+        } else {
+            $actual = $this->inicio;
+            while ($actual->siguiente) {
+                $actual = $actual->siguiente;
+            }
+            $actual->siguiente = $nuevo;
+        }
+    }
+
+    public function mostrar() {
+        $actual = $this->inicio;
+        while ($actual) {
+            echo $actual->equipo1 . " vs " . $actual->equipo2 . "\n";
+            $actual = $actual->siguiente;
+        }
+    }
+}
+
+echo "2. Calendario de Partidos:\n";
+$calendario = new Calendario();
+$calendario->agregarPartido("Tigres", "América");
+$calendario->agregarPartido("Monterrey", "Chivas");
+$calendario->mostrar();
+echo "\n";
+
+// 3. Pilas: Guardamos el historial de partidos jugados
+echo "3. Historial de Partidos:\n";
+$historial = new SplStack();
+$historial->push("Tigres 2 - 1 América");
+$historial->push("Monterrey 3 - 0 Chivas");
+
+while (!$historial->isEmpty()) {
+    echo $historial->pop() . "\n";
+}
+echo "\n";
+
+// 4. Colas: Próximos partidos en la jornada (orden de espera)
+echo "4. Próximos Partidos:\n";
+$cola = new SplQueue();
+$cola->enqueue("Pumas vs Tigres");
+$cola->enqueue("Chivas vs América");
+
+while (!$cola->isEmpty()) {
+    echo $cola->dequeue() . "\n";
+}
+echo "\n";
+
+// 5. Árbol binario: Simulamos una tabla de posiciones con un árbol simple
+class NodoEquipo {
+    public $nombre, $izq, $der;
+
+    public function __construct($nombre) {
+        $this->nombre = $nombre;
+        $this->izq = $this->der = null;
+    }
+}
+
+echo "5. Tabla de Posiciones:\n";
+$top = new NodoEquipo("Tigres");
+$top->izq = new NodoEquipo("Monterrey");
+$top->der = new NodoEquipo("América");
+
+echo "1: " . $top->nombre . "\n2: " . $top->izq->nombre . "\n3: " . $top->der->nombre . "\n\n";
+
+// 6. Grafo: Rivalidades entre equipos (conexiones entre ellos)
+echo "6. Rivalidades:\n";
+$grafo = [
+    "Tigres" => ["Monterrey"],
+    "América" => ["Chivas"],
+    "Pumas" => ["América"],
+    "Monterrey" => ["Tigres"],
+    "Chivas" => ["América"]
+];
+
+foreach ($grafo as $equipo => $rivales) {
+    echo "Equipo $equipo: ";
+    foreach ($rivales as $rival) {
+        echo $rival . " ";
+    }
+    echo "\n";
+}
+
+?>
